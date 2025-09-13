@@ -9,7 +9,14 @@ const BusMap = dynamic(() => import("./ui/BusMap"), { ssr: false });
 type BusLine = (typeof data.bus_lines)[number];
 
 export default function Home() {
-  const busLines = useMemo(() => data.bus_lines as BusLine[], []);
+  const busLines = useMemo(
+    () =>
+      data.bus_lines.map((line) => ({
+        ...line,
+        capacity: line.passengers?.capacity ?? 0,
+      })),
+    [],
+  );
   const [selectedId, setSelectedId] = useState<number>(busLines[0]?.id ?? 1);
   const selected = useMemo(
     () => busLines.find((b) => b.id === selectedId) ?? busLines[0],
@@ -25,15 +32,15 @@ export default function Home() {
       </div>
 
       {/* Brand header */}
-      <header className="bg-[#86efac] px-4 py-3 border-b border-emerald-600/30">
+      <header className="bg-[#4CAF50] px-4 py-3 border-b border-green-600/30">
         <div className="text-center">
-          <p className="text-[10px] text-emerald-800/90 tracking-wide">
+          <h1 className="text-[18px] font-bold text-black">
+            {data.company_info.name}
+          </h1>
+          <p className="text-[10px] text-black/80 tracking-wide">
             Proudly Servicing Malaysian Bus Riders Since{" "}
             {data.company_info.founded}
           </p>
-          <h1 className="text-[18px] font-semibold text-emerald-900">
-            {data.company_info.name}
-          </h1>
         </div>
       </header>
 
@@ -62,7 +69,7 @@ export default function Home() {
 
       <section className="p-3">
         <div className="h-[260px] overflow-hidden rounded-sm border shadow-sm">
-          <BusMap line={selected} allLines={busLines} />
+          <BusMap line={selected} />
         </div>
       </section>
 
@@ -95,10 +102,10 @@ export default function Home() {
           </div>
           <ul className="divide-y text-[13px]">
             {selected.bus_stops.map((stop) => (
-              <li
+             <li
                 key={stop.id}
                 className={`grid grid-cols-2 ${
-                  stop.is_next_stop ? "bg-[#fde68a]" : "bg-white"
+                  stop.is_next_stop ? "bg-[#FFA500] text-white font-semibold" : "bg-white"
                 }`}
               >
                 <div className="px-3 py-2 text-gray-800">{stop.name}</div>
