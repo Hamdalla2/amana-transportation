@@ -93,7 +93,7 @@ export default function BusMap({ line }: { line: BusLine }) {
     <MapContainer center={center} zoom={12} className="h-full w-full">
       {/* Grayscale OSM tiles */}
       <TileLayer
-        url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
 
