@@ -29,6 +29,10 @@ body {
   font: inherit;
 }
 
+.leaflet-tile-pane {
+  filter: grayscale(100%);
+}
+
 .leaflet-popup-content-wrapper {
   background-color: #ffe4e6 !important; 
   border: 2px solid #ef4444;           
