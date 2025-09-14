@@ -20,8 +20,22 @@ export type BusLine = {
   route_number: string;
   current_location: LatLng & { address: string };
   status: string;
-  capacity: number; 
+  capacity: number;
+  passengers: {
+    current: number;
+    capacity: number;
+    utilization_percentage: number;
+  };
   bus_stops: BusStop[];
+  incidents: {
+    id: number;
+    type: string;
+    description: string;
+    reported_by: string;
+    reported_time: string;
+    status: string;
+    priority: string;
+  }[];
 };
 
 // 🟢 Icons
